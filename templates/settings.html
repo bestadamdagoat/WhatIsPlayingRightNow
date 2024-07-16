@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <title>Settings - WhatIsPlayingRightNow</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="/">WhatIsPlayingRightNow</a>
+    </nav>
+    <div class="container">
+        <h1>Settings for {{ username }}</h1>
+        <p>Share your currently playing song with this link:</p>
+        <p><a href="{{ share_url }}" class="text-info">{{ share_url }}</a></p>
+        <form method="POST" action="{{ url_for('update_settings') }}">
+            <div class="form-group">
+                <label for="sharing_enabled">Enable Sharing:</label>
+                <input type="checkbox" id="sharing_enabled" name="sharing_enabled" {% if sharing_enabled %}checked{% endif %}>
+            </div>
+            <div class="form-group" id="hide_options" style="display: {% if sharing_enabled %}none{% else %}block{% endif %};">
+                <label for="hide_reason">Hide Reason:</label>
+                <select class="form-control" id="hide_reason" name="hide_reason">
+                    <option value="hidden" {% if hide_reason == 'hidden' %}selected{% endif %}>Make it known you're hiding your music</option>
+                    <option value="nothing" {% if hide_reason == 'nothing' %}selected{% endif %}>Make it look like nothing is playing</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="show_device_info">Show Device Info:</label>
+                <input type="checkbox" id="show_device_info" name="show_device_info" {% if show_device_info %}checked{% endif %}>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+        </form>
+        <form method="POST" action="{{ url_for('delete_account') }}">
+            <button type="submit" class="btn btn-danger mt-3">Delete Account</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+    <footer class="footer">
+        <span>Version: 2024.16.7-beta</span>
+        <br>
+        <span>Fully open-source on <a href="https://github.com/bestadamdagoat/WhatIsPlayingRightNow" target="_blank">GitHub</a></span>
+    </footer>
+    <script>
+        document.getElementById('sharing_enabled').addEventListener('change', function() {
+            document.getElementById('hide_options').style.display = this.checked ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

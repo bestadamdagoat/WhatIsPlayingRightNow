@@ -1,0 +1,5 @@
+Flask
+spotipy
+requests
+python-dotenv
+SQLAlchemy

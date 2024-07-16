@@ -1,0 +1,102 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h1, h5 {
+    color: #1DB954;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form button {
+    margin-top: 10px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.navbar {
+    margin-bottom: 30px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #1DB954 !important;
+}
+
+.btn-primary {
+    background-color: #1DB954;
+    border-color: #1DB954;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #17a74a;
+    border-color: #17a74a;
+    color: #ffffff;
+}
+
+.footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #1b1b1b;
+    border-top: 1px solid #333;
+}
+
+.alert {
+    background-color: #333;
+    color: #fff;
+    border-color: #444;
+}
+
+.card {
+    background-color: #1b1b1b;
+    border-color: #333;
+}
+
+.card-body a {
+    color: #ffffff;
+}
+
+.card-body a:hover {
+    color: #17a74a;
+}
+
+.card-body img {
+    max-width: 150px;
+    float: left;
+    margin-right: 20px;
+}
+
+.progress {
+    background-color: #ffffff;
+    height: 10px;
+}
+
+.progress-bar {
+    background-color: #1DB954;
+    height: 10px;
+}
+
+#progress-text {
+    color: #ffffff;
+    font-size: 0.9rem;
+}

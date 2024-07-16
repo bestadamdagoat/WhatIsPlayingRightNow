@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <title>WhatIsPlayingRightNow</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="/">WhatIsPlayingRightNow</a>
+    </nav>
+    <div class="container">
+        <h1>WhatIsPlayingRightNow</h1>
+        <p>Easily share what you're currently listening to. Fully passwordless, zero logs, easy account deletion, and easy privacy settings. All we store is your username, refresh token, ID, and your setting preferences. Don't like it? The source is at the bottom of the site.</p>
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Log in with Spotify</a>
+    </div>
+    <footer class="footer">
+        <span>Version: 2024.16.7-beta</span>
+        <br>
+        <span>Fully open-source on <a href="https://github.com/bestadamdagoat/WhatIsPlayingRightNow" target="_blank">GitHub</a></span>
+    </footer>
+</body>
+</html>

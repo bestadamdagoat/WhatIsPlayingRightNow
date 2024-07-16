@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <title>Currently Playing - WhatIsPlayingRightNow</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function updateProgressBar(progressMs, durationMs) {
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const interval = 1000;
+            const increment = (interval / durationMs) * 100;
+
+            function update() {
+                progressMs += interval;
+                const percentage = (progressMs / durationMs) * 100;
+                progressBar.style.width = percentage + '%';
+                progressText.innerText = `${Math.floor(progressMs / 1000)} / ${Math.floor(durationMs / 1000)} seconds`;
+
+                if (progressMs >= durationMs) {
+                    clearInterval(timer);
+                    location.reload();
+                }
+            }
+
+            const timer = setInterval(update, interval);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressMs = {{ song_info.progress_ms }};
+            const durationMs = {{ song_info.duration_ms }};
+            updateProgressBar(progressMs, durationMs);
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="/">WhatIsPlayingRightNow</a>
+    </nav>
+    <div class="container">
+        <h1>Currently Playing</h1>
+        {% if hide_message %}
+            <p>{{ hide_message }}</p>
+        {% elif private_session %}
+            <p>The user is in a private session.</p>
+        {% elif song_info %}
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{ song_info.album_image }}" class="card-img" alt="Album Image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ song_info.song_name }}</h5>
+                            <p class="card-text"><strong>Artist(s):</strong> {{ song_info.artists }}</p>
+                            <p class="card-text"><strong>Album:</strong> {{ song_info.album }}</p>
+                            <div class="progress">
+                                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: {{ (song_info.progress_ms / song_info.duration_ms) * 100 }}%" aria-valuenow="{{ song_info.progress_ms }}" aria-valuemin="0" aria-valuemax="{{ song_info.duration_ms }}"></div>
+                            </div>
+                            <p id="progress-text" class="card-text"><small>{{ song_info.progress_ms // 1000 }} / {{ song_info.duration_ms // 1000 }} seconds</small></p>
+                            <a href="{{ song_info.song_url }}" class="btn btn-primary">Listen on Spotify</a>
+                            {% if song_info.device_info %}
+                                <p class="card-text"><strong>Device Name:</strong> {{ song_info.device_info.name }}</p>
+                                <p class="card-text"><strong>Device Type:</strong> {{ song_info.device_info.type }}</p>
+                                <p class="card-text"><strong>Volume:</strong> {{ song_info.device_info.volume_percent }}%</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>No song currently playing</p>
+        {% endif %}
+    </div>
+    <footer class="footer">
+        <span>Version: 2024.16.7-beta</span>
+        <br>
+        <span>Fully open-source on <a href="https://github.com/bestadamdagoat/WhatIsPlayingRightNow" target="_blank">GitHub</a></span>
+    </footer>
+</body>
+</html>
